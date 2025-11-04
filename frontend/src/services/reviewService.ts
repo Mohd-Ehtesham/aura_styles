@@ -7,7 +7,7 @@ import type {
 } from "../interfaces/reviews/ReviewsInterface";
 import type { DeleteReviewApiResponse } from "../interfaces/reviews/DeleteReviewInterface";
 
-const BASE_API_URL = "http://localhost:8080/";
+const BASE_API_URL = "https://aura-styles-backend-1.onrender.com/";
 
 async function fetchAllReviews(
   skip = 0,

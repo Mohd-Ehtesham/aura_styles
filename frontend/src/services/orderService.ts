@@ -6,7 +6,7 @@ import type {
 import type { FetchOrderApiResponse } from "../interfaces/Orders/fetchOrderInterface";
 import type { UserOrdersApiResponse } from "../interfaces/Orders/UserOrdersInterface";
 
-const BASE_API_URL = "http://localhost:8080/";
+const BASE_API_URL = "https://aura-styles-backend-1.onrender.com/";
 
 async function createOrder(data: Order): Promise<CreateOrderApiResponse> {
   try {

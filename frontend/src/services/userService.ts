@@ -7,7 +7,7 @@ import type {
   UserLoginResponse,
 } from "../interfaces/users/LoginUserInterface";
 
-const BASE_API_URL = "http://localhost:8080/";
+const BASE_API_URL = "https://aura-styles-backend-1.onrender.com/";
 
 async function registerUser(
   formData: FormData

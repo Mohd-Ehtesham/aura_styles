@@ -4,7 +4,7 @@ import type { CartsInterfaceResponse } from "../interfaces/carts/CartsInterface"
 import type { UpdateCartProductResponse } from "../interfaces/carts/updateCartProductInterface";
 import type { RemoveProductFromCartResponse } from "../interfaces/carts/RemoveFromCartInterface";
 
-const BASE_API_URL = "http://localhost:8080/";
+const BASE_API_URL = "https://aura-styles-backend-1.onrender.com/";
 
 export function addProductToCart(
   productId: string,

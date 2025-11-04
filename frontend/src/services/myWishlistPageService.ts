@@ -4,7 +4,7 @@ import type { MyWishlistPageResponse } from "../interfaces/wishlist/MyWishlistPa
 import type { FetchWishlistResponse } from "../interfaces/wishlist/GetWishlistProductsInterface";
 import type { RemoveWishlistProductResponse } from "../interfaces/wishlist/RemoveWishlistProductInterface";
 
-const BASE_API_URL = "http://localhost:8080/";
+const BASE_API_URL = "https://aura-styles-backend-1.onrender.com/";
 
 async function toggleWishlistProduct(
   productId: string

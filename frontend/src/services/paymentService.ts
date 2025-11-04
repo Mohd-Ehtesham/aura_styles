@@ -7,7 +7,7 @@ import type {
   PaymentVerificationResponse,
 } from "../interfaces/PaymentInterface";
 
-const BASE_API_URL = "http://localhost:8080/";
+const BASE_API_URL = "https://aura-styles-backend-1.onrender.com/";
 
 async function makePayment(
   orderId: string,

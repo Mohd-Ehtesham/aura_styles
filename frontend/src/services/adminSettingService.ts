@@ -2,7 +2,7 @@ import axios from "axios";
 
 import type { AdminSettingApiResponse } from "../interfaces/AdminSettingInterface";
 
-const BASE_API_URL = "http://localhost:8080/";
+const BASE_API_URL = "https://aura-styles-backend-1.onrender.com/";
 
 async function fetchAllAdminSettings(): Promise<AdminSettingApiResponse> {
   try {
