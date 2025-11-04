@@ -1,0 +1,20 @@
+.notFoundContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  color: #e46e6e;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.span {
+  color: blue;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  cursor: pointer;
+}

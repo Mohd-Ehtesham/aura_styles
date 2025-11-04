@@ -1,0 +1,45 @@
+.outerContainer {
+  padding: 12px 20px;
+}
+
+.innerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 70em;
+  max-width: 80vw;
+}
+
+.heading {
+  font-weight: bold;
+  font-size: 2.7rem;
+}
+
+.subHeading {
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+.card {
+  background-color: #f0f0f0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 2rem;
+  border: 1px solid #637ab9;
+}
+
+.flexContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  padding: 1.5rem;
+}
+
+.paragraphContent {
+  font-size: 2rem;
+  font-weight: 900;
+}

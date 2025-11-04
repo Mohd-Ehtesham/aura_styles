@@ -1,0 +1,163 @@
+/* ===== Base styles (desktop first) ===== */
+.container {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 50vw;
+  margin: 2rem auto;
+  border-radius: 8px;
+  background-color: #fff7f3;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.innerFormContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.heading {
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 2rem 0 1rem;
+  text-align: center;
+}
+
+.individualFormContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+}
+
+.selectContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.selectBox {
+  width: 40%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  background-color: #fff7f3;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.selectBox:focus {
+  outline: none;
+  border-color: #f75270;
+}
+
+.optionBox {
+  font-size: 1rem;
+  font-family: cursive;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+/* ====== Responsive Breakpoints ====== */
+
+/* ✅ Large screens (1200px and below) */
+@media (max-width: 1200px) {
+  .formContainer {
+    max-width: 70vw;
+  }
+}
+
+/* ✅ Medium screens (tablets, 992px and below) */
+@media (max-width: 992px) {
+  .formContainer {
+    max-width: 80vw;
+  }
+
+  .innerFormContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .heading {
+    font-size: 1.75rem;
+  }
+
+  .selectBox {
+    width: 60%;
+  }
+}
+
+/* ✅ Small screens (mobile, 768px and below) */
+@media (max-width: 768px) {
+  .container {
+    padding: 2rem 1rem;
+    align-items: center;
+  }
+
+  .formContainer {
+    max-width: 90vw;
+    padding: 1.5rem;
+  }
+
+  .innerFormContainer {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .heading {
+    font-size: 1.5rem;
+  }
+
+  .selectContainer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .selectBox {
+    width: 100%;
+  }
+
+  .buttonContainer {
+    margin-top: 1.5rem;
+  }
+}
+
+/* ✅ Extra small screens (480px and below) */
+@media (max-width: 480px) {
+  .formContainer {
+    padding: 1rem;
+  }
+
+  .heading {
+    font-size: 1.3rem;
+  }
+
+  .selectBox {
+    font-size: 0.9rem;
+  }
+
+  .error {
+    font-size: 0.8rem;
+  }
+
+  .buttonContainer button {
+    width: 100%;
+  }
+}

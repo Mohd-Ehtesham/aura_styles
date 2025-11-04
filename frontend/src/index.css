@@ -1,0 +1,14 @@
+/* index.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fff7f3;
+  color: #447d9b;
+
+  font-family: "Caveat", cursive;
+}

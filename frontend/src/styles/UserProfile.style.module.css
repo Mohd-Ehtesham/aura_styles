@@ -1,0 +1,143 @@
+.loaderWrapper,
+.errorWrapper,
+.emptyWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  z-index: 9999;
+}
+
+.errorText {
+  color: red;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.profileContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  min-height: calc(100vh - 100px);
+  background-color: #f8f9fa;
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 850px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.avatarSection {
+  flex: 1;
+  background: linear-gradient(135deg, #6c63ff, #836fff);
+  color: #fff;
+  text-align: center;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
+
+.name {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.role {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.infoSection {
+  flex: 2;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.infoItem {
+  display: flex;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.label {
+  width: 120px;
+  font-weight: 600;
+  color: #555;
+}
+
+.loading,
+.error {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+/* ✅ Responsive styles */
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+    max-width: 95%;
+  }
+
+  .avatarSection {
+    padding: 1.5rem;
+  }
+
+  .infoSection {
+    padding: 1.5rem;
+  }
+
+  .infoItem {
+    flex-direction: column;
+  }
+
+  .label {
+    width: auto;
+    margin-bottom: 0.3rem;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .name {
+    font-size: 1.4rem;
+  }
+
+  .role {
+    font-size: 1rem;
+  }
+
+  .infoItem {
+    font-size: 0.9rem;
+  }
+}

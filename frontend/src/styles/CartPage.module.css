@@ -1,0 +1,133 @@
+.cartPage {
+  padding: 1rem;
+}
+
+.outlineButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.infoContainer {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  color: #555;
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  background-color: #fff7f3;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+}
+
+.table th,
+.table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #fff7f3;
+  vertical-align: middle;
+}
+
+.table th {
+  background-color: #fff7f3;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #333;
+}
+
+.table td {
+  font-weight: bold;
+  font-size: 1.95rem;
+  color: #444;
+}
+
+.image {
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.strikeThrough {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.actionButtonsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 900px) {
+  .table th,
+  .table td {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .image {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .actionButtons button {
+    padding: 0.3rem 0.6rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .tableContainer {
+    overflow-x: auto;
+  }
+
+  .table th,
+  .table td {
+    white-space: nowrap;
+  }
+
+  .image {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .table {
+    font-size: 0.85rem;
+  }
+
+  .image {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .actionButtonsContainer {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .outlineButton {
+    font-size: 0.9rem;
+  }
+}
