@@ -7,6 +7,7 @@ import updateCartProductQuantity from "./features/cart/updateProductQuantity";
 import removeProductFromCartReducer from "./features/cart/removeProductFromCart";
 
 import loggedUser from "../redux/features/user/loggedUserSlice";
+import updateUser from "../redux/features/user/updateUserSlice";
 import userLoginReducer from "../redux/features/user/userLoginSlice";
 import userRegisterReducer from "../redux/features/user/userRegisterSlice";
 
@@ -33,15 +34,16 @@ import userOrders from "./features/orders/getUserOrdersSlice";
 
 const store = configureStore({
   reducer: {
+    loggedUser: loggedUser,
+    updateUser: updateUser,
     loginUser: userLoginReducer,
     registerUser: userRegisterReducer,
-    loggedUser: loggedUser,
     fetchReviews: reviewsReducer,
     createReview: createReviewReducer,
     updateReview: updateReviewReducer,
     deleteReview: deleteReviewReducer,
-    carts: productsInCarts,
     clearCarts: clearCart,
+    carts: productsInCarts,
     addToCartReducer: addProductToCartReducer,
     updateCartItemQuantity: updateCartProductQuantity,
     removeFromCartReducer: removeProductFromCartReducer,

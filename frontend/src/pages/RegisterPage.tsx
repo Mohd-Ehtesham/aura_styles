@@ -1,6 +1,7 @@
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import * as Yup from "yup";
 
@@ -14,21 +15,63 @@ import Label from "../components/Label";
 import Button from "../components/Button";
 
 import type { AppDispatch, RootState } from "../redux/store";
-import type { RegisterUser } from "../interfaces/users/RegisterUserInterface";
+
 import { createNewUser } from "../redux/features/user/userRegisterSlice";
+import { loggedUserThunk } from "../redux/features/user/loggedUserSlice";
+import { updateUserThunk } from "../redux/features/user/updateUserSlice";
+
+import type { RegisterUser } from "../interfaces/users/RegisterUserInterface";
 
 import styles from "../styles/RegisterPage.style.module.css";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error } = useSelector(
     (state: RootState) => state.registerUser
   );
+  const { user } = useSelector((state: RootState) => state.loggedUser);
+  const loggedUser = user?.data;
+
+  const { id } = location.state;
+  console.log("Location state id:", id);
+
+  useEffect(
+    function () {
+      if (id && !loggedUser) {
+        dispatch(loggedUserThunk());
+      }
+    },
+    [dispatch, id]
+  );
+
+  useEffect(() => {
+    if (loggedUser) {
+      formik.setValues({
+        avatar: loggedUser.avatar as unknown as File,
+        name: loggedUser.name || "",
+        email: loggedUser.email || "",
+        password: "******",
+        phone: loggedUser.phone || "",
+        street: loggedUser.street || "",
+        state: loggedUser.state || "",
+        country: loggedUser.country || "",
+        postalCode: loggedUser.postalCode || "",
+        googleId: loggedUser.googleId || "",
+        facebookId: loggedUser.facebookId || "",
+        provider: loggedUser.provider || "",
+        role: loggedUser.role || "",
+        isVerified: String(loggedUser.isVerified || ""),
+      });
+      formik.setTouched({});
+      formik.setSubmitting(false);
+    }
+  }, [loggedUser]);
 
   const formik = useFormik<RegisterUser>({
     initialValues: {
-      avatar: "" as unknown as File,
+      avatar: "",
       name: "",
       email: "",
       password: "",
@@ -44,30 +87,56 @@ export default function RegisterPage() {
       isVerified: "",
     },
     validationSchema: Yup.object({
-      avatar: Yup.mixed()
-        .required("Avatar is required")
-        .test("fileType", "Unsupported File Format", (value) => {
-          if (value && value instanceof File) {
-            return ["image/jpeg", "image/png", "image/jpg"].includes(
-              value.type
-            );
-          }
-          return false;
-        }),
+      avatar: id
+        ? Yup.mixed()
+        : Yup.mixed()
+            .test("required", "Avatar is required", (value) => {
+              return value instanceof File;
+            })
+            .test("fileType", "Unsupported File Format", (value) => {
+              if (value && value instanceof File) {
+                return ["image/jpeg", "image/png", "image/jpg"].includes(
+                  value.type
+                );
+              }
+              return true;
+            }),
+
       name: Yup.string().min(3).max(30).required("Name is required"),
+
       email: Yup.string().email().required("Email is required"),
-      password: Yup.string().min(6).required("Password is required"),
+
+      password: id
+        ? Yup.string()
+        : Yup.string().min(6).required("Password is required"),
+
       phone: Yup.string().required("Phone is required"),
       street: Yup.string().required("Street is required"),
       state: Yup.string().required("State is required"),
       country: Yup.string().required("Country is required"),
       postalCode: Yup.string().required("Postal Code is required"),
-      googleId: Yup.string().required("Google Id is required"),
-      facebookId: Yup.string().required("Facebook Id is required"),
-      provider: Yup.string().required("Provider is required"),
-      role: Yup.string().required("Role is required"),
-      isVerified: Yup.string().required("Verification is required"),
+
+      googleId: id
+        ? Yup.string().notRequired()
+        : Yup.string().required("Google Id is required"),
+
+      facebookId: id
+        ? Yup.string().notRequired()
+        : Yup.string().required("Facebook Id is required"),
+
+      provider: id
+        ? Yup.string().notRequired()
+        : Yup.string().required("Provider is required"),
+
+      role: id
+        ? Yup.string().notRequired()
+        : Yup.string().required("Role is required"),
+
+      isVerified: id
+        ? Yup.string().notRequired()
+        : Yup.string().required("Verification is required"),
     }),
+
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async (values) => {
@@ -81,26 +150,22 @@ export default function RegisterPage() {
         }
       });
       try {
-        const resultAction = await dispatch(createNewUser(formData));
-        if (createNewUser.fulfilled.match(resultAction)) {
-          const data = resultAction.payload;
-          if (data.success) {
-            toast.success("New user Successfully created.");
-            navigate("/login");
-          } else {
-            toast.error("Error in creating new user");
-            navigate(-1);
-          }
+        let resultAction;
+        if (id) {
+          resultAction = await dispatch(updateUserThunk({ id, formData }));
         } else {
-          console.error("Thunk was rejected:", resultAction.error);
-          toast.error(
-            resultAction.error?.message ||
-              "Something went wrong in registering user"
+          resultAction = await dispatch(createNewUser(formData));
+        }
+        if (resultAction.meta.requestStatus === "fulfilled") {
+          toast.success(
+            id ? "User updated successfully" : "New user Successfully created."
           );
+          navigate(id ? "/myProfile" : "/login");
+        } else {
+          toast.error("Something went wrong!");
           navigate(-1);
         }
       } catch (error: any) {
-        console.error("Unexpected error during registration:", error);
         toast.error("Unexpected error occurred");
         navigate(-1);
       }
@@ -157,8 +222,8 @@ export default function RegisterPage() {
               name="avatar"
               accept="image/*"
               id="avatar"
-              onChange={(e) => {
-                const file = e.currentTarget.files?.[0];
+              onChange={(e: React.ChangeEvent) => {
+                const file = (e.target as HTMLInputElement).files?.[0];
                 formik.setFieldValue("avatar", file);
                 formik.setFieldTouched("avatar", true, true);
               }}
@@ -230,12 +295,8 @@ export default function RegisterPage() {
             </div>
           ))}
           <div className={`${styles.inputContainer} ${styles.submitButton}`}>
-            <Button
-              variant="primary"
-              type="submit"
-              disabled={!formik.isValid || !formik.dirty}
-            >
-              Register
+            <Button variant="primary" type="submit" disabled={!formik.isValid}>
+              {id ? "Update User" : "Register User"}
             </Button>
           </div>
         </form>

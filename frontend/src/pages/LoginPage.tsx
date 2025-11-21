@@ -41,7 +41,6 @@ export default function LoginPage() {
     onSubmit: async (values) => {
       try {
         const resultAction = await dispatch(loginUserThunk(values));
-        console.log(resultAction);
         if (loginUserThunk.fulfilled.match(resultAction)) {
           const user = resultAction.payload.loggedUser;
           const role = user.role;

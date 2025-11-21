@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import type { LoggedUserResponse } from "../interfaces/users/LoggedUserInterface";
+import type { UpdateUserResponse } from "../interfaces/users/UpdateUserInterface";
 import type { userRegisterApiResponse } from "../interfaces/users/RegisterUserInterface";
 import type {
   LoginUser,
@@ -81,4 +82,36 @@ async function getLoggedUser(): Promise<LoggedUserResponse> {
   }
 }
 
-export { registerUser, loginUser, getLoggedUser };
+async function updateUser(
+  id: string,
+  formData: FormData
+): Promise<UpdateUserResponse> {
+  try {
+    const response = await axios.put(
+      `${BASE_API_URL}updateUser/${id}`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        console.error("Server responded with error", error.response.data);
+      } else if (error.request) {
+        console.error("No Response Recieved", error.request.data);
+      } else {
+        console.error("Unexpected Error", error);
+      }
+    } else {
+      console.error("Unexpected Error", error);
+    }
+    throw error;
+  }
+}
+
+export { registerUser, loginUser, getLoggedUser, updateUser };

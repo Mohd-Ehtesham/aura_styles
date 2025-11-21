@@ -10,8 +10,10 @@ import type { AppDispatch, RootState } from "../redux/store";
 import { loggedUserThunk } from "../redux/features/user/loggedUserSlice";
 
 import styles from "../styles/UserProfile.style.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function UserProfile() {
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error, user } = useSelector(
     (state: RootState) => state.loggedUser
@@ -83,7 +85,12 @@ export default function UserProfile() {
             <span className={styles.label}>Verified:</span>
             <span>{loggedUser?.isVerified ? "✅ Yes" : "❌ No"}</span>
           </div>
-          <Button variant="secondary">
+          <Button
+            variant="secondary"
+            onClick={() =>
+              navigate("/register", { state: { id: loggedUser?._id } })
+            }
+          >
             <FaEdit size={20} />
           </Button>
         </div>
